@@ -23,15 +23,6 @@ use Illuminate\Support\Facades\File;
 
      }
 
-     /**
-
-      * Show the application dashboard.
-
-      *
-
-      * @return \Illuminate\Http\Response
-
-      */
 
      public function postSummernote(Request $request)
 
@@ -181,6 +172,7 @@ use Illuminate\Support\Facades\File;
         $posts->image = $name; //insert name image to database
         $posts->save();
 
+        return Redirect('post');
     }
 
 
