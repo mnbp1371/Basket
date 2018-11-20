@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('post' , 'PostController');
+
+Route::get('summernote',array('as'=>'summernote.get','uses'=>'PostController@getSummernote'));
+
+Route::post('summernote',array('as'=>'summernote.post','uses'=>'PostController@postSummernote'));
+

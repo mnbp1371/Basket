@@ -7,8 +7,12 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "hekmatinasser/verta": "^1.9",
+        "keraken/laravel-jalali-date": "^1.0",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "league/period": "^4.0",
+        "unisharp/laravel-ckeditor": "^4.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
