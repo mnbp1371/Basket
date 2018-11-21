@@ -32,6 +32,12 @@ class Post extends Model
 
         return 'urltitle';
     }
+
+    public function comments()
+    {
+
+        return $this->hasMany(Comment::class);
+    }
 //
 
 }

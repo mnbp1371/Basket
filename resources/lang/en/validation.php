@@ -290,6 +290,8 @@ return array(
         "available" => "موجود",
         "size" => "اندازه",
         "urltitle"=>"عنوان یو آر آل",
-        "image"=>"عکس"
+        "image"=>"عکس",
+        "username"=>"نام کابری",
+        "body"=>"نظر"
     ),
 );

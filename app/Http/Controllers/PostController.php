@@ -92,7 +92,7 @@ use Illuminate\Support\Facades\File;
 
          $request->validate([
             'title' => 'required|max:100',
-            'content' => 'required|unique:posts|min:100',
+            'content' => 'required|unique:posts|min:2',
             'urltitle' => 'required',
             'image' => 'required',
             'description' => 'required',

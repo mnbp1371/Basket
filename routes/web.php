@@ -21,3 +21,6 @@ Route::get('summernote',array('as'=>'summernote.get','uses'=>'PostController@get
 
 Route::post('summernote',array('as'=>'summernote.post','uses'=>'PostController@postSummernote'));
 
+Route::post('/comment/{id}','CommentController@storecomment');
+
+

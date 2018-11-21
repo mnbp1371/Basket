@@ -20,5 +20,44 @@
         <h3>date:</h3>
         {{$posts->created_at}}
         <hr>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
+        <form action="/comment/{{$posts->id}}" method="post">
+            {{csrf_field()}}
+            username:
+            <input type="text" name="username"><br>
+            comment:
+            <textarea name="body" cols="30" rows="3"></textarea>
+            <input type="submit">
+        </form>
+        <hr>
+        <hr>
+        @foreach($posts->comments as $comment)
+            {{$comment->username}}
+            <br>
+            {{$comment->body}}
+            <br>
+            {{$comment->created_at}}
+            <hr>
+
+        @endforeach
+
+
+
+
+
+
+
+
     </body>
 </html>
