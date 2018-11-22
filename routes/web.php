@@ -23,4 +23,8 @@ Route::post('summernote',array('as'=>'summernote.post','uses'=>'PostController@p
 
 Route::post('/comment/{id}','CommentController@storecomment');
 
+Route::post('/tag','TagController@store');
+Route::get('/post/tag/{tag}','TagController@index');
+
+
 
