@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Keraken\Zaman\Facades\Zaman;
@@ -75,13 +76,15 @@ use Illuminate\Support\Facades\File;
     public function index()
     {
         $posts = Post::orderBy('id','DESC')->get();
-        return view('post',compact('posts'));
+        $tags=Tag::all();
+        return view('post',compact('posts','tags'));
 
     }
 
 
     public function create()
     {
+
         return view('create');
     }
 
@@ -117,6 +120,16 @@ use Illuminate\Support\Facades\File;
         Storage::disk('public')->put($name,  File::get($cover));
         $news->image = $name; //insert name image to database
         $news->save();
+        $news->tag()->sync($request->tag);
+
+
+
+
+
+
+
+
+
         return back();
 
     }
@@ -135,7 +148,8 @@ use Illuminate\Support\Facades\File;
     public function edit(Post $post)
     {
         $posts = Post::find($post->id);
-        return view('edit',compact('posts'));
+        $tags= Tag::all();
+        return view('edit',compact('posts','tags'));
 
     }
 
@@ -147,7 +161,7 @@ use Illuminate\Support\Facades\File;
 
         $request->validate([
             'title' => 'required|max:100',
-            'content' => 'required|min:100',
+            'content' => 'required',
             'urltitle' => 'required',
             'description' => 'required',
             'keywords' => 'required',
@@ -171,6 +185,7 @@ use Illuminate\Support\Facades\File;
 
         $posts->image = $name; //insert name image to database
         $posts->save();
+        $posts->tag()->sync($request->tag);
 
         return Redirect('post');
     }
