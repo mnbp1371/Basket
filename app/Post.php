@@ -44,6 +44,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
 
      }
+     public  function hasSelected($id)
+     {
+        return in_array($id,$this->tag()->pluck('id')->toArray());
+
+     }
 
 
 //
