@@ -28,6 +28,13 @@
         <hr>
         keywords: <br>
         <textarea name="keywords" cols="10" rows="5"></textarea>
+        <br>tag:
+        <select name="tag[]" multiple>
+            @foreach($tags as $tag)
+                <option value="{{$tag->id}}">{{$tag->name}}</option>
+            @endforeach
+        </select>
+
 
         <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -61,6 +68,16 @@
 
 
     </form>
+    <br><br>
+
+    <form action="/tag" method="post">
+        {{csrf_field()}}
+
+        <input type="text" name="tagname" >
+        <input type="submit" >
+
+    </form>
+
 
     <script type="text/javascript">
 

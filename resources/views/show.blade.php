@@ -20,6 +20,11 @@
         <h3>date:</h3>
         {{$posts->created_at}}
         <hr>
+        @foreach($posts->tag as $tag)
+            <a href="/post/tag/{{$tag->name}}">   {{$tag->name}} </a>
+            <br>
+        @endforeach
+        <hr>
 
         @if ($errors->any())
             <div class="alert alert-danger">

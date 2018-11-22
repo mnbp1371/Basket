@@ -13,7 +13,7 @@
 <body>
 
     @foreach($posts as $post)
-           <h2> {{$post->title}}     </h2>
+           <h2> {{$post->title}}  </h2>
         <br>
         <img src='{{url('uploads/'.$post->image)}}' height="200" width="300" alt="khabar aks nadarad">
         <br>

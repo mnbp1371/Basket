@@ -48,19 +48,28 @@
 
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+
+
+        <br><br>
+        <select name="tag[]" multiple >
+            @foreach($tags as $tag)
+                <option value="{{$tag->id}}" @if($posts->hasSelected($tag->id)) selected @endif>{{$tag->name}}</option >
+            @endforeach
+        </select>
+
+
     </form>
 
 
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <script type="text/javascript">
 
