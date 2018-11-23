@@ -80,4 +80,10 @@ class PostPolicy
     {
         //
     }
+
+    public function permission(User $user){
+        
+
+    }
+
 }

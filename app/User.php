@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function rols()
+    {
+
+        return $this->hasMany(Rol::class);
+    }
 
 
 }
