@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\File;
  class PostController extends Controller
 {
 
+     public function __construct()
+     {
+         $this->middleware('auth')->except('index','show'); //this function can work for evrybody
+     }
+
 
      public function getSummernote()
 
@@ -84,8 +89,8 @@ use Illuminate\Support\Facades\File;
 
     public function create()
     {
-
-        return view('create');
+        $tags=Tag::all();
+        return view('create',compact('tags'));
     }
 
 
