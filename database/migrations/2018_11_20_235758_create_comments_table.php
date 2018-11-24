@@ -22,6 +22,9 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
         });
 
+        // oni k taaalogh dare bayad foregin dashte bashe
+
+
 
     }
 

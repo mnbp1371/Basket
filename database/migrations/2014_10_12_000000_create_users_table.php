@@ -19,9 +19,16 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            //$table->integer('rol_id')->unsigned()->index();
+            //$table->foreign('rol_id')->references('id')->on('rols');
             $table->rememberToken();
             $table->timestamps();
         });
+
+       
+
+
+
     }
 
     /**
@@ -32,5 +39,9 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        //Schema::enableForeignKeyConstraints('users');
+        //$table->dropForeign('users_rol_id_foreign');
+        //$table->dropColumn('rol_id');
+
     }
 }

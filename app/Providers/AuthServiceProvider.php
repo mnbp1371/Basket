@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('permission','App\Policies\PostPolicy@view' );
+        Gate::define('permission','App\Policies\PostPolicy@permission' );
     }
 }

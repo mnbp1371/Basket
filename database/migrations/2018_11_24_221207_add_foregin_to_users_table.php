@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolsTable extends Migration
+class AddForeginToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateRolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rols', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('permission');
-           // $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('rol_id')->unsigned()->index();
+            $table->foreign('rol_id')->references('id')->on('rols')->;
         });
     }
 
@@ -27,6 +26,8 @@ class CreateRolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rols');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }
