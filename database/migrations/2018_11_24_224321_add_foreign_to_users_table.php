@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeginToUsersTable extends Migration
+class AddForeignToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddForeginToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('rol_id')->unsigned()->index();
-            $table->foreign('rol_id')->references('id')->on('rols')->;
+            $table->integer('rol_id')->default('3')->unsigned();
+            $table->foreign('rol_id')->references('id')->on('rols')->onDelete('cascade');
         });
     }
 
