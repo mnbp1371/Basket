@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\File;
 
      public function __construct()
      {
+         $this->middleware('checkPermission')->except('index', 'show'); //this function can work for evrybody
+        // $this->middleware('permission'); //this function can work for evrybody
 
         //print Auth::user();
         //print Auth::user()->id;
@@ -44,8 +46,8 @@ use Illuminate\Support\Facades\File;
       //  }elseif($rol_id == 3){$this->middleware('auth')->except('index','show'); //this function can work for evrybody
         // }
 
-        $a = auth()::user;
-        dd($a);
+       // $a = auth()::user;
+       // dd($a);
 
 
      }
