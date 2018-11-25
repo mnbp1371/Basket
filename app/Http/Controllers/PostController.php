@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\File;
  class PostController extends Controller
 {
 
-     public function __construct()
+         public function __construct()
      {
          $this->middleware('checkPermission')->except('index', 'show'); //this function can work for evrybody
         // $this->middleware('permission'); //this function can work for evrybody
