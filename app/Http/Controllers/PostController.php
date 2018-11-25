@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Rol;
 use App\Tag;
+use App\User;
 use Faker\Provider\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Keraken\Zaman\Facades\Zaman;
 use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
@@ -17,7 +20,34 @@ use Illuminate\Support\Facades\File;
 
      public function __construct()
      {
-         $this->middleware('auth')->except('index','show'); //this function can work for evrybody
+
+        //print Auth::user();
+        //print Auth::user()->id;
+
+       // print Auth::user();
+         //$user=User::find(1);
+        //Auth::user()
+
+         //$r= Auth::user()->rol_id();
+         //echo $r ;
+         //$a=$user->id;
+        //echo $a ;
+
+           //
+
+
+       // $rol_id= Auth::user();
+       // dd($rol_id);
+
+       // if($rol_id == 1) {
+          //  $this->middleware('auth')->except('index', 'show', 'create');
+      //  }elseif($rol_id == 3){$this->middleware('auth')->except('index','show'); //this function can work for evrybody
+        // }
+
+        $a = auth()::user;
+        dd($a);
+
+
      }
 
 

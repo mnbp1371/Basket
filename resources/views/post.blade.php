@@ -11,6 +11,8 @@
     <title>Document</title>
 </head>
 <body>
+{{\Illuminate\Support\Facades\Auth::user()}}
+
 
     @foreach($posts as $post)
            <h2> {{$post->title}}  </h2>

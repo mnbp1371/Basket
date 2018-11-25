@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Rol;
 use App\User;
 use App\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -42,7 +43,11 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        //
+        if ($user->post_id == 1 && $user->post_id == 2){
+            return true ;
+        }else{
+            return false ;
+        }
     }
 
     /**
@@ -81,8 +86,10 @@ class PostPolicy
         //
     }
 
-    public function permission(User $user){
-        
+    public function permission(User $user,Rol $rol){
+        if($user->rol_id == 1){
+
+        }
 
     }
 
