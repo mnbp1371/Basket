@@ -11,7 +11,6 @@
     <title>Document</title>
 </head>
 <body>
-{{\Illuminate\Support\Facades\Auth::user()}}
 
 
     @foreach($posts as $post)
@@ -23,15 +22,25 @@
             {!! str_limit($post->content, 10) !!}
            </a>
         <br>
-        <form action="/post/{{$post->urltitle}}/edit">
-            {{csrf_field()}}
-            <input type="submit" value="edit">
-        </form>
-           <br>
-        <form action="/post/{{$post->urltitle}}" method="post">
-            {{csrf_field()}} {{method_field('delete')}}
-            <input type="submit" value="delete">
-        </form>
+
+           @auth
+               @can('posts.update',\Illuminate\Support\Facades\Auth::user())
+                    <form action="/post/{{$post->urltitle}}/edit">
+                        {{csrf_field()}}
+                        <input type="submit" value="edit">
+                    </form>
+               @endcan
+           @endauth
+
+           @auth
+               @can('posts.delete',\Illuminate\Support\Facades\Auth::user())
+                       <br>
+                    <form action="/post/{{$post->urltitle}}" method="post">
+                        {{csrf_field()}} {{method_field('delete')}}
+                        <input type="submit" value="delete">
+                    </form>
+               @endcan
+           @endauth
         <hr>
 
     @endforeach

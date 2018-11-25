@@ -30,6 +30,8 @@ class CheckPermission
         }elseif(\auth()->user()['rol_id'] == 3){
             return redirect('home');
 
+        }else{
+            return redirect('/post');
         }
 
 

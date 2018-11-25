@@ -20,6 +20,7 @@
         <h3>date:</h3>
         {{$posts->created_at}}
         <hr>
+        tags: <br>
         @foreach($posts->tag as $tag)
             <a href="/post/tag/{{$tag->name}}">   {{$tag->name}} </a>
             <br>
@@ -45,6 +46,8 @@
             <textarea name="body" cols="30" rows="3"></textarea>
             <input type="submit">
         </form>
+
+
         <hr>
         <hr>
         @foreach($posts->comments as $comment)

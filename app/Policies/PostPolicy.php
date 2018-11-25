@@ -41,12 +41,14 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function update(User $user, Post $post)
+    public function update(User $user)
     {
-        if ($user->post_id == 1 && $user->post_id == 2){
+        if ($user->rol_id == 1){
             return true ;
-        }else{
-            return false ;
+        }elseif ($user->rol_id == 2){
+            return true ;
+        }elseif ($user->rol_id == 3) {
+            return false;
         }
     }
 
@@ -57,9 +59,17 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return mixed
      */
-    public function delete(User $user, Post $post)
+    public function delete(User $user)
     {
-        //
+
+        if ($user->rol_id == 1){
+            return true ;
+        }elseif ($user->rol_id == 2){
+            return true ;
+        }elseif ($user->rol_id == 3) {
+            return false;
+        }
+
     }
 
     /**
@@ -84,13 +94,6 @@ class PostPolicy
     public function forceDelete(User $user, Post $post)
     {
         //
-    }
-
-    public function permission(User $user,Rol $rol){
-        if($user->rol_id == 1){
-
-        }
-
     }
 
 }
