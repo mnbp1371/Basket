@@ -13,6 +13,7 @@
         <hr>
         writer:
         <br> {{$users->name}}
+        <br>
         <hr>
         <h3>image:</h3>
         <img src="{{url('uploads/'.$posts->image)}}" height="100" width="100">
@@ -25,7 +26,7 @@
         <hr>
         tags: <br>
         @foreach($posts->tag as $tag)
-            <a href="/post/tag/{{$tag->name}}">   {{$tag->name}} </a>
+            <a href="{{url('post')}}">   {{$tag->name}} </a>
             <br>
         @endforeach
         <hr>

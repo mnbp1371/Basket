@@ -147,9 +147,18 @@ use Illuminate\Support\Facades\File;
         $news->description = $request->description;
         $news->keywords = $request->keywords;
         $news->user_id = \auth()->id();
-
         $news->image = basename($request->image);
         $news->save();
+
+        //\auth()->user()->post_id =1;
+        //$user = User::find(\auth()->id());
+       // $user->post_id = $news->id;
+        //$user->save();
+
+
+      //  dd($news->id);
+
+
         $name = "post-" . $news->id . "." . $request->file('image')->getClientOriginalExtension(); //image
 
 
@@ -166,7 +175,8 @@ use Illuminate\Support\Facades\File;
 
     public function show(Post $post)
     {
-
+       //$a = User::find(1);
+        //dd($a->posts);
         $posts = Post::find($post->id);
 
 
