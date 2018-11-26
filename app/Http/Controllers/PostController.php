@@ -146,6 +146,7 @@ use Illuminate\Support\Facades\File;
         $news->urltitle = $request->urltitle;
         $news->description = $request->description;
         $news->keywords = $request->keywords;
+        $news->user_id = \auth()->id();
 
         $news->image = basename($request->image);
         $news->save();
@@ -158,15 +159,6 @@ use Illuminate\Support\Facades\File;
         $news->image = $name; //insert name image to database
         $news->save();
         $news->tag()->sync($request->tag);
-
-
-
-
-
-
-
-
-
         return back();
 
     }
@@ -176,7 +168,11 @@ use Illuminate\Support\Facades\File;
     {
 
         $posts = Post::find($post->id);
-        return view('show',compact('posts'));
+
+
+        $users = User::find($post->user_id);
+
+        return view('show',compact('posts','users'));
 
     }
 

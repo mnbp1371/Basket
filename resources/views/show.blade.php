@@ -11,6 +11,9 @@
         <h3>title:</h3>
         {{$posts->title}}
         <hr>
+        writer:
+        <br> {{$users->name}}
+        <hr>
         <h3>image:</h3>
         <img src="{{url('uploads/'.$posts->image)}}" height="100" width="100">
         <hr>
