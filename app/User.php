@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hekmatinasser\Verta\Verta;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -41,6 +43,19 @@ class User extends Authenticatable
         }
 
 
+    //convere date to persian date with Defining An Accessor
+    public function getDates()
+    {
+        return ['created_at'];
+    }
 
+
+    public function getCreatedAtAttribute()
+    {
+
+        $time = Carbon::parse($this->attributes['created_at'])->toDateTimeString();
+        return new Verta($time);
+
+    }
 
 }

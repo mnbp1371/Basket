@@ -28,6 +28,12 @@ Route::get('/post/tag/{tag}','TagController@index');
 
 
 
+Route::get('/admin','AdminPanelController@indexuser');
+
+Route::post('/{id}/indexstore','AdminPanelController@indexstore');
+Route::get('/{id}/showposts','AdminPanelController@showposts');
+Route::delete('user/{id}/','AdminPanelController@destroyuser');
+
 
 Auth::routes();
 
