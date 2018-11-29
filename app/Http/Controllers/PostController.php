@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
+use App\Order;
 use App\Post;
 use App\Rol;
 use App\Tag;
@@ -14,13 +16,14 @@ use Hekmatinasser\Verta\Verta;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Session;
 
  class PostController extends Controller
 {
 
          public function __construct()
      {
-         $this->middleware('checkPermission')->except('index', 'show'); //this function can work for evrybody
+         $this->middleware('checkPermission')->except('removeshop','index', 'show','showbasket','session','checkout','showshops','reducebyone'); //this function can work for evrybody
         // $this->middleware('permission'); //this function can work for evrybody
 
         //print Auth::user();
@@ -115,6 +118,8 @@ use Illuminate\Support\Facades\File;
         $posts = Post::orderBy('id','DESC')->get();
         $tags=Tag::all();
         return view('post',compact('posts','tags'));
+
+
 
     }
 
@@ -241,4 +246,94 @@ use Illuminate\Support\Facades\File;
         $posts->delete();
         return back();
     }
-}
+
+    // session
+
+     public function session(Request $request,$id)
+     {
+
+         $post=Post::find($id);
+         $oldCart=Session::has('cart') ? Session::get('cart'):null;
+         $cart= new Cart($oldCart);
+         $cart->add($post,$post->id);
+
+         $request->session()->put('cart',$cart);
+
+
+
+         //dd($request->session()->get('cart'));
+         return back();
+     }
+
+
+     public function showbasket()
+     {
+
+
+
+        if(! Session::has('cart')){
+            return view('showbasket',['posts'=>null]);
+
+        }
+
+        $oldCart = Session::get('cart');
+        $cart =new Cart($oldCart);
+        return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
+
+     }
+     public function checkout(){
+             $oldcart = Session::get('cart');
+             $cart= new Cart($oldcart);
+             $order= new Order;
+             $order->cart= serialize($cart);
+             $order->user_id= \auth()->id();
+             $order->save();
+             Session::forget('cart');
+             return redirect('post');
+     }
+
+     public function showshops(){
+             $orders= Auth:: user()->orders;
+          // dd($orders);
+         $orders->transform(function ($order,$key){
+             $order->cart=unserialize($order->cart);
+             return $order;
+         });
+         $a = array();
+
+          foreach($orders as $order){
+            $a = $order;
+         }
+        return view('showshops',['a'=>$a]);
+     }
+        public function reducebyone($id){
+
+            $oldCart=Session::has('cart') ? Session::get('cart'):null;
+            $cart= new Cart($oldCart);
+            $cart->reducebyone($id);
+            if(count($cart->items )> 0)
+            {
+                Session::put('cart',$cart);
+                return back();
+            }else{
+                Session::forget('cart');
+                return back();
+            }
+        }
+
+        public function removeshop($id){
+            $oldCart=Session::has('cart') ? Session::get('cart'):null;
+            $cart= new Cart($oldCart);
+            $cart->removeshop($id);
+            if(count($cart->items )> 0)
+            {
+                Session::put('cart',$cart);
+                return back();
+            }else{
+                Session::forget('cart');
+                return back();
+            }
+
+
+        }
+ }
