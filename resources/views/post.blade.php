@@ -11,6 +11,9 @@
     <title>Document</title>
 </head>
 <body>
+ <a href="/showbasket">Show-bASKET  </a>
+ {{Session::has('cart') ? Session::get('cart')->totalQty : null }}
+<hr>
 
 
     @foreach($posts as $post)
@@ -22,6 +25,13 @@
             {!! str_limit($post->content, 10) !!}
            </a>
         <br>
+
+           <br>
+
+           <a href="/{{$post->id}}/session">  aded to sabad  </a>
+
+
+           <br><br>
 
            @auth
                @can('posts.update',\Illuminate\Support\Facades\Auth::user())
