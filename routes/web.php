@@ -30,9 +30,20 @@ Route::get('/post/tag/{tag}','TagController@index');
 
 Route::get('/admin','AdminPanelController@indexuser');
 
+//admin panel Route
 Route::post('/{id}/indexstore','AdminPanelController@indexstore');
 Route::get('/{id}/showposts','AdminPanelController@showposts');
 Route::delete('user/{id}/','AdminPanelController@destroyuser');
+
+
+///session route
+Route::get('/{id}/session','PostController@session');
+Route::get('/showbasket','PostController@showbasket');
+Route::post('/checkout','PostController@checkout')->middleware('auth');
+Route::get('/showshops','PostController@showshops');
+Route::get('/reducebyone/{id}','PostController@reducebyone');
+Route::get('/reducebyone/{id}','PostController@reducebyone');
+Route::get('/removeshop/{id}','PostController@removeshop');
 
 
 Auth::routes();
