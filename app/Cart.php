@@ -48,12 +48,14 @@ class Cart {
 
 
     public function removeshop($id){
-
+        $this->totalQty = ($this->totalQty)-($this->items[$id]['qty']);
         $this->items[$id]['qty']-=$this->items[$id]['qty'];
         $this->totalPrice -= $this->items[$id]['cost'];
+
 
             unset($this->items[$id]);
     }
 
 
 }
+
