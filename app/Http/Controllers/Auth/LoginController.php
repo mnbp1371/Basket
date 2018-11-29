@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
+use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 class LoginController extends Controller
 {
@@ -25,6 +28,8 @@ class LoginController extends Controller
      *
      * @var string
      */
+
+
     protected $redirectTo = '/home';
 
     /**
@@ -34,6 +39,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        //Session(['ids'=>array('id'=>'1')]);
+        //Session()->save();
         $this->middleware('guest')->except('logout');
     }
 }
