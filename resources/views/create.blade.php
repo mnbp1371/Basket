@@ -20,6 +20,9 @@
         <hr>
         <input type="file" name="image">
         <hr>
+        Cost: <br>
+        <input type="text" name="cost">
+        <hr>
         urltitle:<br>
         <input type="text" name="urltitle">
         <hr>

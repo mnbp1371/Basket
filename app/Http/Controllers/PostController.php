@@ -142,12 +142,14 @@ use Session;
             'image' => 'required',
             'description' => 'required',
             'keywords' => 'required',
+            'cost' => 'required',
         ]);
 
 
         $news = new Post;
         $news->title = $request->title;
         $news->content = $request->content;
+        $news->cost = $request->cost;
         $news->urltitle = $request->urltitle;
         $news->description = $request->description;
         $news->keywords = $request->keywords;
@@ -214,10 +216,12 @@ use Session;
             'description' => 'required',
             'keywords' => 'required',
             'image' => 'required',
+            'cost' => 'required',
         ]);
         $posts = Post::find($post->id);
         $posts->title = $request->title;
         $posts->content = $request->content;
+        $posts->cost = $request->cost;
         $posts->urltitle = $request->urltitle;
         $posts->image = basename($request->image);
         $posts->description = $request->description;
