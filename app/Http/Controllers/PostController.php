@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Basket;
 use App\Cart;
 use App\Order;
 use App\Post;
@@ -262,6 +263,25 @@ use Session;
          $cart->add($post,$post->id);
 
          $request->session()->put('cart',$cart);
+         $basketFinder = User::find(\auth()->id())->baskets->first();
+         if($basketFinder == null){
+             $ahmadi = new Basket;
+             $ahmadi->cart= serialize($cart);
+             $ahmadi->user_id= \auth()->id();
+             $ahmadi->save();
+
+
+         }else{
+             $basketId = User::find(\auth()->id())->baskets->first()->id;
+             $a = Basket::find($basketId);
+             $a->cart= serialize($cart);
+             $a->user_id= \auth()->id();
+             $a->save();
+
+
+         }
+
+
 
 
 
@@ -282,7 +302,24 @@ use Session;
 
         $oldCart = Session::get('cart');
         $cart =new Cart($oldCart);
-        return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
+        //return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
+
+
+         $baskets= Auth:: user()->baskets;
+         // dd($orders);
+         $baskets->transform(function ($basket,$key){
+             $basket->cart=unserialize($basket->cart);
+             return $basket;
+         });
+         $a = array();
+
+         foreach($baskets as $basket){
+             $a = $basket;
+         }
+
+        // dd($a);
+
+        return view('showbaskets',compact('a'));
 
      }
      public function checkout(){
@@ -318,9 +355,23 @@ use Session;
             if(count($cart->items )> 0)
             {
                 Session::put('cart',$cart);
+                ///
+                $basketId = User::find(\auth()->id())->baskets->first()->id;
+                $basket = Basket::find($basketId);
+                $basket->cart= serialize($cart);
+                $basket->user_id= \auth()->id();
+                $basket->save();
+                ///
                 return back();
             }else{
                 Session::forget('cart');
+                //
+                $basketId = User::find(\auth()->id())->baskets->first()->id;
+                $basketd = Basket::find($basketId);
+                $basketd->cart= serialize($cart);
+                $basketd->user_id= \auth()->id();
+                $basketd->save();
+
                 return back();
             }
         }
@@ -332,9 +383,19 @@ use Session;
             if(count($cart->items )> 0)
             {
                 Session::put('cart',$cart);
+                $basketId = User::find(\auth()->id())->baskets->first()->id;
+                $basket = Basket::find($basketId);
+                $basket->cart= serialize($cart);
+                $basket->user_id= \auth()->id();
+                $basket->save();
                 return back();
             }else{
                 Session::forget('cart');
+                $basketId = User::find(\auth()->id())->baskets->first()->id;
+                $basketd = Basket::find($basketId);
+                $basketd->cart= serialize($cart);
+                $basketd->user_id= \auth()->id();
+                $basketd->save();
                 return back();
             }
 
