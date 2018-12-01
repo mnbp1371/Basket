@@ -37,8 +37,8 @@ Route::delete('user/{id}/','AdminPanelController@destroyuser');
 
 
 ///session route
-Route::get('/{id}/session','PostController@session');
-Route::get('/showbasket','PostController@showbasket');
+Route::put('/{id}/session','PostController@session');
+Route::get('/showbaskets','PostController@showbasket');
 Route::post('/checkout','PostController@checkout')->middleware('auth');
 Route::get('/showshops','PostController@showshops');
 Route::get('/reducebyone/{id}','PostController@reducebyone');

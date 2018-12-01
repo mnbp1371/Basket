@@ -12,7 +12,8 @@
     <title>Document</title>
 </head>
 <body>
-<a href="/showbasket">Show-bASKET </a>
+<a href="/showbaskets">Show-bASKET </a>
+
 {{Session::has('cart') ? Session::get('cart')->totalQty : null }}
 <hr>
 
@@ -33,8 +34,12 @@
 
     <br>
 
-    <a href="/{{$post->id}}/session"> aded to sabad </a>
 
+    <form action="/{{$post->id}}/session" method="post">
+        {{csrf_field()}}
+        {{method_field('put')}}
+        <input type="submit" value="add to basket">
+    </form>
 
     <br><br>
 

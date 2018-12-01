@@ -6,7 +6,7 @@
         <br>
        titl:
 
-        {{$post['item']['title']}}}
+       {{$post['item']['title']}}}
        <br>
        {{$post['item']['id']}}
         <br>
@@ -27,6 +27,13 @@
 
 
     @endforeach
+    <hr>
+
+
+
+
+
+
     <hr>
     total cost:
 <h1>{{$totalCost}}</h1>
