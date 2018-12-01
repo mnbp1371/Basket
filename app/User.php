@@ -36,11 +36,11 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
-     public function posts()
-        {
+    public function posts()
+    {
 
-            return $this->hasMany(Post::class);
-        }
+        return $this->hasMany(Post::class);
+    }
 
 
     //convere date to persian date with Defining An Accessor
@@ -58,10 +58,15 @@ class User extends Authenticatable
 
     }
 
-     public function orders()
-            {
+    public function orders()
+    {
 
-                return $this->hasMany(Order::class);
-            }
+        return $this->hasMany(Order::class);
+    }
 
+    public function baskets()
+    {
+        return $this->hasMany(Basket::class);
+
+    }
 }
