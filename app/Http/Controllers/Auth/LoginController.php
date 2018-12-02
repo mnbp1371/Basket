@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Basket;
+use App\Cart;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +45,6 @@ class LoginController extends Controller
         //Session(['ids'=>array('id'=>'1')]);
         //Session()->save();
         $this->middleware('guest')->except('logout');
+
     }
 }

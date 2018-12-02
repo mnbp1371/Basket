@@ -264,23 +264,43 @@ use Session;
 
          $request->session()->put('cart',$cart);
          $basketFinder = User::find(\auth()->id())->baskets->first();
-         if($basketFinder == null){
-             $ahmadi = new Basket;
-             $ahmadi->cart= serialize($cart);
-             $ahmadi->user_id= \auth()->id();
-             $ahmadi->save();
+         if (Auth::check()){
+             if($basketFinder == null){
+                 $ahmadi = new Basket;
+                 $ahmadi->cart= serialize($cart);
+                 $ahmadi->user_id= \auth()->id();
+                 $ahmadi->save();
+             }else{
+                 $basketId = User::find(\auth()->id())->baskets->first()->id;
+                 $a = Basket::find($basketId);
+                 $baskets= Auth:: user()->baskets;
+                 // dd($orders);
+                 $baskets->transform(function ($basket,$key){
+                     $basket->cart=unserialize($basket->cart);
+                     return $basket;
+                 });
+                 $a = array();
+
+                 foreach($baskets as $basket){
+                     $a = $basket;
+                 }
+                 $oldCart= $a->cart;
+                 $cart= new Cart($oldCart);
+                 $cart->add($post,$post->id);
+
+                 $a->cart= serialize($cart);
+                 $a->user_id= \auth()->id();
+                 $a->save();
+                 $request->session()->put('cart',$cart);
 
 
-         }else{
-             $basketId = User::find(\auth()->id())->baskets->first()->id;
-             $a = Basket::find($basketId);
-             $a->cart= serialize($cart);
-             $a->user_id= \auth()->id();
-             $a->save();
+             }
+
+
+
 
 
          }
-
 
 
 
@@ -292,37 +312,67 @@ use Session;
 
      public function showbasket()
      {
+        if (Auth::check()){
+            $basketId = User::find(\auth()->id())->baskets->first()->id;
+            $a = Basket::find($basketId);
+            $baskets= Auth:: user()->baskets;
+            // dd($orders);
+            $baskets->transform(function ($basket,$key){
+                $basket->cart=unserialize($basket->cart);
+                return $basket;
+            });
+            $a = array();
 
+            foreach($baskets as $basket){
+                $a = $basket;
+            }
+            $oldCart=$a->cart;
 
-
-        if(! Session::has('cart')){
-            return view('showbasket',['posts'=>null]);
-
+            $cart= new Cart($oldCart);
+            return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
         }
 
-        $oldCart = Session::get('cart');
+
+
+
+      if(! Session::has('cart')){
+           return view('showbasket',['posts'=>null]);
+
+      }
+
+       $oldCart = Session::get('cart');
         $cart =new Cart($oldCart);
-        //return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
+         return view('showbasket',['posts'=>$cart->items,'totalCost'=>$cart->totalPrice]);
 
 
-         $baskets= Auth:: user()->baskets;
+        // $baskets= Auth:: user()->baskets;
          // dd($orders);
-         $baskets->transform(function ($basket,$key){
-             $basket->cart=unserialize($basket->cart);
-             return $basket;
-         });
-         $a = array();
-
-         foreach($baskets as $basket){
-             $a = $basket;
-         }
+//         $baskets->transform(function ($basket,$key){
+//             $basket->cart=unserialize($basket->cart);
+//             return $basket;
+//         });
+//         $a = array();
+//
+//         foreach($baskets as $basket){
+//             $a = $basket;
+        // }
 
         // dd($a);
 
-        return view('showbaskets',compact('a'));
+        //return view('showbasket',compact('a'));
 
      }
      public function checkout(){
+             if (Auth::check()){
+                 $oldcart = Session::forget('cart');
+                 $cart= new Cart($oldcart);
+                 $cart= new Cart($oldcart);
+                 $order= User::find(\auth()->id())->baskets->first();
+                 $order->cart= serialize($cart);
+                 $order->user_id= \auth()->id();
+                 $order->save();
+
+             }
              $oldcart = Session::get('cart');
              $cart= new Cart($oldcart);
              $order= new Order;
